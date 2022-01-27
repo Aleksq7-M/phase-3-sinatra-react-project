@@ -6,7 +6,9 @@ class ApplicationController < Sinatra::Base
     { message: "Good luck with your project!" }.to_json
   end
 
-  # get "/m/:dd/:mm/:yyyy" do
-  # end
+  get "/m/:dd/:mm/:yyyy" do
+    events = Timeline.first.month(year: params[:yyyy].to_i, month: params[:mm].to_i)
+    events.to_json
+  end
 
 end
