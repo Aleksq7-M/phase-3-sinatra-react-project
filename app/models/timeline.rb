@@ -1,54 +1,30 @@
+require 'date';
+require 'time';
 class Timeline < ActiveRecord::Base
     has_many :events
 
-    def month_seconds(month)
-        case month
-        when 1
-            return 0
-        when 2
-            return 31*86400
-        when 3
-            return (28*86400) + (31*86400)
-        when 4
-            return 2*(31*86400) + (28*86400)
-        when 5
-            return 30*86400 + 2*(31*86400) + (28*86400)
-        when 6
-            return 30*86400 + 3*(31*86400) + (28*86400)
-        when 7
-            return 2*(30*86400) + 3*(31*86400) + (28*86400)
-        when 8
-            return 2*(30*86400) + 4*(31*86400) + (28*86400)
-        when 9
-            return 2*(30*86400) + 5*(31*86400) + (28*86400)
-        when 10
-            return 3*(30*86400) + 5*(31*86400) + (28*86400)
-        when 11
-            return 3*(30*86400) + 6*(31*86400) + (28*86400)
-        when 12
-            return 4*(30*86400) + 6*(31*86400) + (28*86400)
+    #returns all events in a given month
+    def month(year: , month: )
+
+        date = DateTime.new(year, month, 1,0,0,0,-7)
+
+        month_start = date.to_time.to_i
+        month_end = (date >> 1).to_time.to_i
+
+        events = self.events.where({event_start: month_start..month_end}).order(event_start: :asc)
+
+        sorted_events = {}
+
+        i = 1
+        while i < 7
+            sorted_events["week_#{i}"] = []
+            i+=1
         end
-    end
 
-    def month(year:, month: )
-        month_start = 
-        #seconds for the given year
-        ((year-1970)*31536000 + 
-        #seconds for the given month of that year
-        self.month_seconds(month) + 
-        #add leap days
-        ((((year-1970)/4).floor())*86400) + 
-        #and add exactly one day for reasons I cannot discern
-        86400)
+        events.each do |event|
+            week_num = (((event.event_start - leap_days(year))/604800).floor()) - ((days_given_year(year) + month_days(month))/7).floor()
+            sorted_events["week_#{week_num}"] << (event)
+        end
 
-        
-
-        month_end = 
-        ((year-1970)*31536000 + 
-        self.month_seconds(month + 1) + 
-        ((((year-1970)/4).floor())*86400) + 
-        86400)
-
-        return self.events.where({event_start: month_start..month_end})
     end
 end
