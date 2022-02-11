@@ -2,9 +2,12 @@ require 'rest-client';
 require 'pry';
 require 'date';
 require 'time';
-puts "🌱 Seeding the timeline..."
+puts "🌱 Seeding the Universal User"
 
-Timeline.create(user: "Alex")
+User.create(
+    username: "Dev",
+    password: "elopment"
+)
 
 # Seed your database here
 
@@ -28,12 +31,12 @@ holiday_array.each do |holiday|
         event_name: holiday["name"],
         event_location: holiday["country"]["name"],
         recurring: true,
-        timeline_id: Timeline.first.id
+        user_id: User.first.id
     )
 end
 
-Event.create(event_start: 986083200, event_end: 986169599, event_name: "Happy Birthday!", event_location: "Wherever you are", recurring: true, timeline_id: Timeline.first.id)
-Event.create(event_start: 987292800, event_end: 987379199, event_name: "Easter", event_location: "The general Christian sphere", recurring: true, timeline_id: Timeline.first.id)
-Event.create(event_start: 986342400, event_end: 986428799, event_name: "The First Wednesday of April 2001", event_location: "The entire universe", recurring: false, timeline_id: Timeline.first.id)
+Event.create(event_start: 986083200, event_end: 986169599, event_name: "Happy Birthday!", event_location: "Wherever you are", recurring: true, user_id: User.first.id)
+Event.create(event_start: 987292800, event_end: 987379199, event_name: "Easter", event_location: "The general Christian sphere", recurring: true, user_id: User.first.id)
+Event.create(event_start: 986342400, event_end: 986428799, event_name: "The First Wednesday of April 2001", event_location: "The entire universe", recurring: false, user_id: User.first.id)
 
 puts "✅ Done seeding!"

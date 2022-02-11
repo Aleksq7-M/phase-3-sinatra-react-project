@@ -7,7 +7,7 @@ class ApplicationController < Sinatra::Base
   end
 
   get "/m/:dd/:mm/:yyyy" do
-    events = Timeline.first.month(year: params[:yyyy].to_i, month: params[:mm].to_i)
+    events = Event.month(year: params[:yyyy].to_i, month: params[:mm].to_i)
     events.to_json
   end
 
