@@ -9,6 +9,11 @@ User.create(
     password: "elopment"
 )
 
+User.create(
+    username:"Alex",
+    password:"n0ne_lol"
+)
+
 # Seed your database here
 
 puts "🌱 Seeding events..."
@@ -38,5 +43,13 @@ end
 Event.create(event_start: 986083200, event_end: 986169599, event_name: "Happy Birthday!", event_location: "Wherever you are", recurring: true, user_id: User.first.id)
 Event.create(event_start: 987292800, event_end: 987379199, event_name: "Easter", event_location: "The general Christian sphere", recurring: true, user_id: User.first.id)
 Event.create(event_start: 986342400, event_end: 986428799, event_name: "The First Wednesday of April 2001", event_location: "The entire universe", recurring: false, user_id: User.first.id)
+Event.create(
+    event_start: 986256000,
+    event_end: 986256001,
+    event_name: "Test Event From the Future",
+    event_location: "Nowhere",
+    recurring: false,
+    user_id: User.second.id
+)
 
 puts "✅ Done seeding!"

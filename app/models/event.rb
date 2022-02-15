@@ -77,4 +77,6 @@ class Event < ActiveRecord::Base
         return sorted_events
 
     end
+
+    
 end
