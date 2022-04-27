@@ -38,7 +38,7 @@ holiday_array.each do |holiday|
         recurring: true,
         user_id: User.first.id
     )
-end
+end 
 
 Event.create(event_start: 986083200, event_end: 986169599, event_name: "Happy Birthday!", event_location: "Wherever you are", recurring: true, user_id: User.first.id)
 Event.create(event_start: 987292800, event_end: 987379199, event_name: "Easter", event_location: "The general Christian sphere", recurring: true, user_id: User.first.id)

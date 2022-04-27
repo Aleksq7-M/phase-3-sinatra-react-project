@@ -2,7 +2,7 @@ require 'date';
 require 'time';
 
 class Event < ActiveRecord::Base
-    belongs_to :timeline
+    belongs_to :user
 
     MONTH_LENGTHS = [
         nil,
